@@ -148,7 +148,7 @@ def get_model_fn(num_gpus, variable_strategy, num_workers):
                                                   boundaries, staged_lr)
 
       loss = tf.reduce_mean(tower_losses, name='loss')
-
+        
       examples_sec_hook = cifar10_utils.ExamplesPerSecondHook(
           params.train_batch_size, every_n_steps=10)
 
@@ -159,8 +159,8 @@ def get_model_fn(num_gpus, variable_strategy, num_workers):
 
       train_hooks = [logging_hook, examples_sec_hook]
 
-      optimizer = tf.train.MomentumOptimizer(
-          learning_rate=learning_rate, momentum=momentum)
+      optimizer = tf.train.AdagradOptimizer(
+          learning_rate=learning_rate)
 
       if params.sync:
         optimizer = tf.train.SyncReplicasOptimizer(
@@ -227,8 +227,7 @@ def _tower_fn(is_training, weight_decay, feature, label, data_format,
       'probabilities': tf.nn.softmax(logits)
   }
 
-  tower_loss = tf.losses.sparse_softmax_cross_entropy(
-      logits=logits, labels=label)
+  tower_loss = tf.losses.sigmoid_cross_entropy(logits=logits, labels=label)
   tower_loss = tf.reduce_mean(tower_loss)
 
   model_params = tf.trainable_variables()
