@@ -9,21 +9,21 @@ Average examples per second during training
 Final accuracy of evaluation
     0.4859
 Loss of the model: 
-    1.8334069
+    1.1060545
 ```
 
 2. train-steps=2000
 ```
 Completion time of the training task: 
-    real    37m1.290s
-    user    133m29.996s
-    sys     6m28.572s
+    real    37m10.331s
+    user    133m47.632s
+    sys     6m47.940s
 Average examples per second during training
-    59.0316 (62.0026)
+    58.7608 (62.0397)
 Final accuracy of evaluation
-    0.4859
+    0.5591
 Loss of the model: 
-    1.1060545
+    0.83666766
 ```
 
 3. train-steps=1000, checkpoint-num-steps=500
